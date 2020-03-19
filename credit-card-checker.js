@@ -31,7 +31,7 @@ const batch2 = [invalid6, invalid7, invalid8, invalid9, invalid10, invalid11];
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
-// main.js is a program that validates whether a credit card is a valid # or not based on Luhn's Algorithm. It will also return the credit card company that manufactured the invalid credit card number.
+// credit-card-checker.js is a program that validates whether a credit card is a valid # or not based on Luhn's Algorithm. It will also return the credit card company that manufactured the invalid credit card number.
 // Add your functions below:
 // validateCred is a function that validates whether a credit card is a valid # or not based on Luhn's algorithm.
 const validateCred = cardArray => { //Returns true when an array contains digits of a valid credit card number and false when it is invalid
