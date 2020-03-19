@@ -19,6 +19,15 @@ const mystery3 = [6, 0, 1, 1, 3, 7, 7, 0, 2, 0, 9, 6, 2, 6, 5, 6, 2, 0, 3]
 const mystery4 = [4, 9, 2, 9, 8, 7, 7, 1, 6, 9, 2, 1, 7, 0, 9, 3]
 const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 
+// More invalid credit card numbers
+const invalid6 = [4,0,2,4,0,0,7,1,5,7,7,7,8,3,4,0]
+const invalid7 = [4,4,8,5,0,2,6,5,1,2,8,8,6,9,5,4]
+const invalid8 = [4,9,2,9,8,9,0,1,6,9,8,9,6,7,7,3,6,7,0]
+const invalid9 = [3,5,4,2,8,0,0,3,0,6,3,1,6,1,2,8]
+const invalid10 = [3,5,3,4,1,1,5,0,5,5,1,4,0,0,7,8]
+const invalid11 = [3,5,3,1,8,0,4,1,2,3,5,2,2,6,8,4,5,3,8]
+const batch2 = [invalid6, invalid7, invalid8, invalid9, invalid10, invalid11];
+
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
@@ -107,7 +116,53 @@ const idInvalidCardCompanies = function(invalidNumsArray) {
     };
     return invalidNumCompanies;
 };
+
 // Test cases:
 console.log(idInvalidCardCompanies([invalid1])); // Should print['visa']
 console.log(idInvalidCardCompanies([invalid2])); // Should print ['mastercard']
 console.log(idInvalidCardCompanies(batch)); // Find out which companies have mailed out invalid cards
+console.log(idInvalidCardCompanies(batch2));
+
+// convertArr converts a string into an array of numbers.
+function convertArr(numString) {
+    return Array.from(numString,Number);
+};
+
+// Test cases:
+console.log(convertArr('131523'));
+console.log(convertArr('5243232'));
+console.log(convertArr('52930120323231'));
+
+
+// numConverter converts an invalid credit card into a valid credit card number.
+function numConverter(numArr) {
+    if (validateCred(numArr) === false) {
+        let credNumber = numArr[numArr.length - 1];
+        for (let i = numArr.length - 2; i >= 0;i--) {
+         if (numArr.length % 2 === 0 && i % 2 === 0) { 
+             if (numArr[i] * 2 > 9) {
+                credNumber += (numArr[i] * 2) - 9;
+            } else {
+                credNumber += numArr[i] * 2;
+            }
+            } else if (numArr.length % 2 === 0 && i % 2 === 1) {
+                credNumber += numArr[i];
+         } else if (numArr.length % 2 === 1 && i % 2 === 1) {
+             if (numArr[i] * 2 > 9) {
+                credNumber += (numArr[i] * 2) - 9;
+             } else {
+                credNumber += numArr[i] * 2;
+            }
+         } else if (numArr.length % 2 === 1 && i % 2 === 0) {
+            credNumber += numArr[i];
+         }
+    } numArr[numArr.length - 1] -= credNumber % 10;
+    return numArr;
+}
+}; 
+
+// Test cases:
+console.log(validateCred(invalid2)); //(1) Invalid Credit Card
+console.log(validateCred(numConverter(invalid2))); //(1) Function converts to valid credit card
+console.log(validateCred(invalid3)); //(2) Invalid Credit Card
+console.log(validateCred(numConverter(invalid3))); //(2) Function converts to valid credit card
